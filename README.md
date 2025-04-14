@@ -34,7 +34,7 @@ Neste projeto, evoluí meus conhecimentos em:
 
 ## 📸 Captura de Tela
 
-![Tabela Brasileirão](https://github.com/kauanycosta/tabela-brasileirao/issues/1#issue-2991865041) 
+![Tabela Brasileirão](https://github.com/user-attachments/assets/13d0a114-88b8-4cb7-8679-4aa1c46fa711)
 
 
 ## 🤝 Contribuição

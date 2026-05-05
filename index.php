@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brasileir√£o S√©rie A</title>
     <link rel="shortcut icon" type="image/png"
-        href="https://upload.wikimedia.org/wikipedia/pt/thumb/4/42/Campeonato_Brasileiro_S%C3%A9rie_A_logo.png/170px-Campeonato_Brasileiro_S%C3%A9rie_A_logo.png" />
+        href="https://files.clicrdc.com.br/wp-content/uploads/2025/04/WhatsApp-Image-2025-04-14-at-14.04.25.jpeg" />
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,8 +20,13 @@ $urlApi = 'https://jsuol.com.br/c/monaco/utils/gestor/commons.js?file=commons.uo
 
 curl_setopt($ch, CURLOPT_URL, $urlApi);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
 $resultApi = curl_exec($ch);
+
+//var_dump($resultApi);
+//exit;
 
 $arrayJsonApi = json_decode($resultApi, true);
 
@@ -152,8 +157,16 @@ $arrayClassificacao = $arrayJsonApi['fases'][$fase]['classificacao']['grupo']['√
                                     $count++;
                                     continue;
                                 }
-                                $arrayPartidasDatas = $arrayJsonApi['fases'][$fase]['jogos']['data'][$arrayMenor];
+
+                                $arrayPartidasDatas = $arrayJsonApi['fases'][$fase]['jogos']['data'][$arrayMenor] ?? [];
+
+                                if (!is_array($arrayPartidasDatas) || empty($arrayPartidasDatas)) {
+                                    $count++;
+                                    continue;
+                                }
+
                                 $qtdePartidas = count($arrayPartidasDatas);
+
                                 $resposta = 2;
 
                                 for ($i = 0; $i < $qtdePartidas; $i++) {
@@ -225,11 +238,12 @@ $arrayClassificacao = $arrayJsonApi['fases'][$fase]['classificacao']['grupo']['√
                                 }
                             }
                             echo "<div class='proximo-jogo' style='display: none;'>$proximoJogo</div>";
-                            ?>
-                        </td>
-                        <?php
-                }
-                ?>
+                        ?>
+                    </td>
+                </tr>
+            <?php
+        }
+    ?>
             </tbody>
         </table>
         <div id="cardInfo">
